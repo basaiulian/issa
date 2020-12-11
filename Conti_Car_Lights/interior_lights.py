@@ -3,17 +3,19 @@ from PyQt4 import QtCore, QtGui, QtTest
 import time
 import threading
 
-spinbox_value = 0
-last_percentage_value = 0
-stop_all = False
+
+
 
 class ThreadClass(QtCore.QThread):
+    spinbox_value = 0
+    last_percentage_value = 0
+
     def init(self, parent = None):
         super(ThreadClass, self).init(parent)
 
     def run(self):
-        self.emit(QtCore.SIGNAL('FADE_IN'), spinbox_value)
-        self.emit(QtCore.SIGNAL('FADE_OUT'), spinbox_value)
+        self.emit(QtCore.SIGNAL('FADE_IN'), self.spinbox_value)
+        self.emit(QtCore.SIGNAL('FADE_OUT'), self.spinbox_value)
 
 class Ui_MainWindow(object):
     threadClass = ThreadClass()
@@ -304,9 +306,6 @@ class Ui_MainWindow(object):
 
         self.progress_bar.setValue(0)
         self.spinBox.setValue(0)
-        
-        global stop_all
-        stop_all = True
 
         self.interior_led_state = False
         self.stop_event = True
@@ -358,25 +357,23 @@ class Ui_MainWindow(object):
     ############################### EXERCISE 3 ###############################
     # Change progress bar value when spinbox value is changed
     def valuechange(self): 
-        global spinbox_value
-        global last_percentage_value
-        spinbox_value = self.spinBox.value()
-        if self.spinBox.value() > last_percentage_value:
+        self.spinbox_value = self.spinBox.value()
+        if self.spinBox.value() > self.threadClass.last_percentage_value:
             self.threadClass.start()
             self.threadClass.connect(self.threadClass, QtCore.SIGNAL('FADE_IN'), self.change_pb_up_value)
         else:
             self.threadClass.start()
             self.threadClass.connect(self.threadClass, QtCore.SIGNAL('FADE_OUT'), self.change_pb_down_value)
         self.progress_bar.setValue(self.spinBox.value())
-        last_percentage_value = spinbox_value
+        self.last_percentage_value = self.spinbox_value
 
     # Change led brightness up when the spinbox value (representing led brightness percentage) is bigger than progress bar value 
     def change_pb_up_value(self, value):
-        self.percentage_label.setStyleSheet("background-color:rgba(110,100,110," + str(value/100) + ");border-radius:5px;")
+        self.percentage_label.setStyleSheet("background-color:rgba(110,100,110," + str(value/100) + ");border-radius:5px;font:bold;")
 
     # Change led brightness down when the spinbox value (representing led brightness percentage) is less than progress bar value 
     def change_pb_down_value(self, value):
-        self.percentage_label.setStyleSheet("background-color:rgba(110,100,110," + str(value/100) + ");border-radius:5px;")
+        self.percentage_label.setStyleSheet("background-color:rgba(110,100,110," + str(value/100) + ");border-radius:5px;font:bold;")
 
     def start_thread(self):
         self.threadClass.start()
@@ -385,8 +382,6 @@ class Ui_MainWindow(object):
     # Succesice KL led turn
     def KL_lights(self, KL):
 
-        # !!! TODO:
-        #  culori la fiecare led pentru KL
         if KL == "No":
             self.set_bg_colors("white", "white", "white", "white")
         if KL == "s":
@@ -461,7 +456,7 @@ class Ui_MainWindow(object):
     # Fade out left door led brightness when slider is moving under obstacle value
     def valuechange_left_slider(self):
         value = self.left_door_slider.value()
-    
+
         if value >= self.max_left_door_value:
             self.left_door_slider.setSliderPosition(self.max_left_door_value)
             self.left_door_led.setStyleSheet("background-color: red;border-radius:5px;")
