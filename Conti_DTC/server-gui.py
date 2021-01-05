@@ -189,68 +189,92 @@ class Ui_MainWindow(object):
     # DTC1
     def set_dtc1(self, led, bright):
         if self.dtc1_state == 0:
-            self.dtc1.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc1_state = 1
-            self.dtc1.setText("Set DTC1 inactive")
+            self.set_dtc_active(1)
         elif self.dtc1_state == 1:
-            self.dtc1_state = 0
-            self.dtc1.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc1.setText("Set DTC1 active")
+            self.set_dtc_inactive(1)
 
     # DTC2
     def set_dtc2(self, led, bright):
         if self.dtc2_state == 0:
-            self.dtc2.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc2_state = 1
-            self.dtc2.setText("Set DTC2 inactive")
+            self.set_dtc_active(2)
         elif self.dtc2_state == 1:
-            self.dtc2_state = 0
-            self.dtc2.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc2.setText("Set DTC2 active")
+            self.set_dtc_inactive(2)
 
     # DTC3
     def set_dtc3(self, led, bright):
         if self.dtc3_state == 0:
-            self.dtc3.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc3_state = 1
-            self.dtc3.setText("Set DTC3 inactive")
+            self.set_dtc_active(3)
         elif self.dtc3_state == 1:
-            self.dtc3_state = 0
-            self.dtc3.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc3.setText("Set DTC3 active")
+            self.set_dtc_inactive(3)
 
     # DTC4
     def set_dtc4(self, led, bright):
         if self.dtc4_state == 0:
-            self.dtc4.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc4_state = 1
-            self.dtc4.setText("Set DTC4 inactive")
+            self.set_dtc_active(4)
         elif self.dtc4_state == 1:
-            self.dtc4_state = 0
+            self.set_dtc_inactive(4)
+
+    def set_dtc_active(self, dtc_number):
+        if dtc_number == 1:
+            self.dtc1.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc1.setText("Set DTC1 inactive")
+            self.dtc1_state = 1
+        if dtc_number == 2:
+            self.dtc2.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc2.setText("Set DTC2 inactive")
+            self.dtc2_state = 1
+        if dtc_number == 3:
+            self.dtc3.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc3.setText("Set DTC3 inactive")
+            self.dtc3_state = 1
+        if dtc_number == 4:
+            self.dtc4.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc4.setText("Set DTC4 inactive")
+            self.dtc4_state = 1
+        if dtc_number == 5:
+            self.dtc1.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc1.setText("Set DTC1 inactive")
+            self.dtc2.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc2.setText("Set DTC2 inactive")
+            self.dtc3.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc3.setText("Set DTC3 inactive")
+            self.dtc4.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc4.setText("Set DTC4 inactive")
+            self.all_dtcs_state, self.dtc1_state, self.dtc2_state, self.dtc3_state, self.dtc4_state = 1, 1, 1, 1, 1
+
+    def set_dtc_inactive(self, dtc_number):
+        if dtc_number == 1:
+            self.dtc1.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc1.setText("Set DTC1 active")
+            self.dtc1_state = 0
+        if dtc_number == 2:
+            self.dtc2.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc2.setText("Set DTC2 active")
+            self.dtc2_state = 0
+        if dtc_number == 3:
+            self.dtc3.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc3.setText("Set DTC3 active")
+            self.dtc3_state = 0
+        if dtc_number == 4:
             self.dtc4.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
             self.dtc4.setText("Set DTC4 active")
+            self.dtc4_state = 0
+        if dtc_number == 5:
+            self.dtc1.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc1.setText("Set DTC1 active")
+            self.dtc2.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc2.setText("Set DTC2 active")
+            self.dtc3.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc3.setText("Set DTC3 active")
+            self.dtc4.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
+            self.dtc4.setText("Set DTC4 active")
+            self.all_dtcs_state, self.dtc1_state, self.dtc2_state, self.dtc3_state, self.dtc4_state = 0, 0, 0, 0, 0
 
     def set_all(self):
         if self.all_dtcs_state == 0:
-            self.dtc1.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc2.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc3.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc4.setStyleSheet("background-color:red;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc1.setText("Set DTC1 inactive")
-            self.dtc2.setText("Set DTC2 inactive")
-            self.dtc3.setText("Set DTC3 inactive")
-            self.dtc4.setText("Set DTC4 inactive")
-            self.all_dtcs_state, self.dtc1_state, self.dtc2_state, self.dtc3_state, self.dtc4_state = 1, 1, 1, 1, 1
+            self.set_dtc_active(5)
         elif self.all_dtcs_state == 1:
-            self.dtc1.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc2.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc3.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc4.setStyleSheet("background-color:green;border-radius:5px;font: bold; font-size: 15px;")
-            self.dtc1.setText("Set DTC1 active")
-            self.dtc2.setText("Set DTC2 active")
-            self.dtc3.setText("Set DTC3 active")
-            self.dtc4.setText("Set DTC4 active")
-            self.all_dtcs_state, self.dtc1_state, self.dtc2_state, self.dtc3_state, self.dtc4_state = 0, 0, 0, 0, 0
+            self.set_dtc_inactive(5)
 
     ############################### EXERCISE 3 ###############################
     def read_dtc1(self):
